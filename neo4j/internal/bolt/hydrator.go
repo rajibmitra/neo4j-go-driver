@@ -55,6 +55,7 @@ type success struct {
 	routingTable       *idb.RoutingTable
 	num                uint32
 	configurationHints map[string]interface{}
+	patches            []string
 }
 
 func (s *success) String() string {
@@ -282,6 +283,9 @@ func (h *hydrator) success(n uint32) *success {
 		case "hints":
 			hints := h.amap()
 			succ.configurationHints = hints
+		case "patch_bolt":
+			patches := h.strings()
+			succ.patches = patches
 		default:
 			// Unknown key, waste it
 			h.trash()
